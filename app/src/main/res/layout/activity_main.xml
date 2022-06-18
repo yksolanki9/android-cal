@@ -27,7 +27,7 @@
             android:id="@+id/btn_ac"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="AC"
@@ -37,16 +37,29 @@
             android:backgroundTint="@color/black_btn" />
 
         <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="\u232b"
+            android:textSize="32sp"
+            app:cornerRadius="0dp"
+            android:onClick="clearLastChar"
+            android:backgroundTint="@color/black_btn" />
+
+        <Button
             android:id="@+id/btn_mod"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="%"
+            android:text="\u0025"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:textSize="32sp"
             app:cornerRadius="0dp"
-            android:onClick="onDigitClicked"
+            android:onClick="onOperatorClicked"
             android:backgroundTint="@color/black_btn"
         />
 
@@ -55,13 +68,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="/"
+            android:backgroundTint="@color/black_btn"
             android:insetTop="0dp"
             android:insetBottom="0dp"
+            android:onClick="onOperatorClicked"
+            android:text="\u00f7"
             android:textSize="32sp"
             app:cornerRadius="0dp"
-            android:onClick="onDigitClicked"
-            android:backgroundTint="@color/black_btn"
 
             />
     </LinearLayout>
@@ -121,12 +134,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="*"
+            android:text="\u00d7"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:textSize="32sp"
             app:cornerRadius="0dp"
-            android:onClick="onDigitClicked"
+            android:onClick="onOperatorClicked"
             android:backgroundTint="@color/black_btn"
 
             />
@@ -186,12 +199,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="-"
+            android:text="\u2212"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:textSize="32sp"
             app:cornerRadius="0dp"
-            android:onClick="onDigitClicked"
+            android:onClick="onOperatorClicked"
             android:backgroundTint="@color/black_btn"
 
             />
@@ -251,12 +264,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="+"
+            android:text="\u002b"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:textSize="32sp"
             app:cornerRadius="0dp"
-            android:onClick="onDigitClicked"
+            android:onClick="onOperatorClicked"
             android:backgroundTint="@color/black_btn"
 
             />
@@ -288,12 +301,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="."
+            android:text="\u002e"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:textSize="32sp"
             app:cornerRadius="0dp"
-            android:onClick="onDigitClicked"
+            android:onClick="onPeriodClicked"
             android:backgroundTint="@color/black_btn"
 
             />
@@ -302,16 +315,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="="
+            android:text="\u003d"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:textSize="32sp"
             app:cornerRadius="0dp"
-            android:onClick="onDigitClicked"
+            android:onClick="calculate"
             android:backgroundTint="@color/black_btn"
 
             />
     </LinearLayout>
-
-
 </LinearLayout>
