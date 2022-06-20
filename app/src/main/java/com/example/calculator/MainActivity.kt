@@ -2,16 +2,15 @@ package com.example.calculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import java.lang.ArithmeticException
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
     private var tvInput: TextView? = null
-    private var tvRes: TextView? = null
+    private var tvMsg: TextView? = null
 
     private val operators = mapOf<String, Char>(
         "MOD" to '\u0025',
@@ -24,29 +23,33 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         tvInput = findViewById(R.id.tv_calc)
-        tvRes = findViewById(R.id.tv_res)
+        tvMsg = findViewById(R.id.tv_msg)
     }
 
     fun onDigitClicked(view: View) {
+        tvMsg?.text = ""
         tvInput?.append((view as Button).text)
     }
 
     fun onOperatorClicked(view: View) {
+        tvMsg?.text = ""
         tvInput?.text?.let {
             val inputStr = it.toString()
-            if (inputStr.isEmpty() && view.id == R.id.btn_sub)
-                tvInput?.append((view as Button).text)
-            else if (inputStr.isNotEmpty())
-                tvInput?.append((view as Button).text)
-            else
-                tvInput
+            val opUni = (view as Button).text[0]
+            if(inputStr.isNotEmpty()) {
+                if (!isOperator(inputStr[inputStr.length-1]))
+                    tvInput?.append(opUni.toString())
+                else {
+                    tvInput?.text = inputStr.substring(0, inputStr.length - 1) + opUni
+                }
+            }
         }
     }
 
     fun onPeriodClicked(view: View) {
         //Handle cases where more than one period should not be allowed in a single operand
+        tvMsg?.text = ""
         tvInput?.text?.let {
             val inputStr = it.toString()
             if(inputStr.isEmpty() || inputStr[inputStr.length-1] != '.') {
@@ -62,20 +65,21 @@ class MainActivity : AppCompatActivity() {
                 for (entry in operators.entries) {
                     if (inputStr.contains(entry.value)) {
                         var resString = calculateUtil(inputStr, entry.key).toString()
-                        if(resString.substring(resString.length-2) == ".0") {
+                        if(resString.length > 2 && resString.substring(resString.length-2) == ".0") {
                             resString = resString.substring(0, resString.length-2)
                         }
                         tvInput?.text = resString
                         break
                     }
                 }
-            } catch (e: ArithmeticException) {
-                e.printStackTrace()
+            } catch (e: Exception) {
+                tvMsg?.text = "Invalid Operation"
             }
         }
     }
 
     fun clearInput(view: View) {
+        tvMsg?.text = ""
         tvInput?.text = ""
     }
 
@@ -89,25 +93,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateUtil(inputStr: String, operator: String): Double {
-        val operands = operators[operator]?.let { inputStr.split(it) }
-        val operand1 = operands?.get(0)?.toDouble()
-        val operand2 = operands?.get(1)?.toDouble()
+        try {
+            val operands = operators[operator]?.let { inputStr.split(it) }
+            val operand1 = operands?.get(0)?.toDouble()
+            val operand2 = operands?.get(1)?.toDouble()
 
-        val operatorUni = operators[operator]
-        var res: Double? = null;
-
-        operand1?.let {
-            operand2?.let {
-                return when (operator) {
-                    "MOD" -> operand1 % operand2
-                    "DIV" -> operand1 / operand2
-                    "MUL" -> operand1 * operand2
-                    "SUB" -> operand1 - operand2
-                    "ADD" -> operand1 + operand2
-                    else -> 0.0
+            operand1?.let {
+                operand2?.let {
+                    return when (operator) {
+                        "MOD" -> operand1 % operand2
+                        "DIV" -> operand1 / operand2
+                        "MUL" -> operand1 * operand2
+                        "SUB" -> operand1 - operand2
+                        "ADD" -> operand1 + operand2
+                        else -> 0.0
+                    }
                 }
             }
+            return 0.0
+        } catch(e: Exception) {
+            throw Exception()
         }
-        return 0.0
+    }
+
+    private fun isOperator(operatorUni: Char): Boolean {
+        for (opUni in operators.values) {
+            if(operatorUni == opUni) {
+                return true
+            }
+        }
+        return false
     }
 }
