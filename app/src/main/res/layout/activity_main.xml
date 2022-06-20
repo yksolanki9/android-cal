@@ -7,15 +7,34 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tv_calc"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="@color/dark_grey_tv"
-        android:gravity="end|bottom"
-        android:textColor="@color/white"
-        android:textSize="48sp"
-        android:padding="12dp" />
+        android:padding="12dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_calc"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="24dp"
+            android:gravity="end|top"
+            android:textColor="@color/white"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/tv_res"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:gravity="end|top"
+            android:textColor="#7F7F7F"
+            android:textSize="36sp" />
+    </LinearLayout>
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
