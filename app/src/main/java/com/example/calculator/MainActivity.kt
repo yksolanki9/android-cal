@@ -47,6 +47,12 @@ class MainActivity : AppCompatActivity() {
 
     fun onPeriodClicked(view: View) {
         //Handle cases where more than one period should not be allowed in a single operand
+        tvInput?.text?.let {
+            val inputStr = it.toString()
+            if(inputStr.isEmpty() || inputStr[inputStr.length-1] != '.') {
+                tvInput?.append(".")
+            }
+        }
     }
 
     fun calculate(view: View) {
